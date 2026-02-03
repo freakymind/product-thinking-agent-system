@@ -9,8 +9,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Requirements Platform - AI-Powered Engineering',
-  description: 'Enterprise requirements engineering platform powered by specialized AI agents for structured, validated product specifications.',
+  title: 'Product Coach - Transform Ideas into Requirements',
+  description: 'AI-powered coaching that guides you through product thinking, from problem framing to prioritized features with data schemas.',
   generator: 'v0.app',
   icons: {
     icon: [

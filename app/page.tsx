@@ -62,7 +62,9 @@ export default function HomePage() {
   }
   
   const handleGetStarted = () => {
-    // Placeholder for handleGetStarted logic
+    if (!session) {
+      createSession()
+    }
     router.push('/agents')
   }
 

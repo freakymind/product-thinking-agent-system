@@ -70,20 +70,27 @@ export default function FlowPage() {
   }
   
   return (
-    <div className="flex h-screen flex-col bg-background">
+    <div className="flex h-screen flex-col bg-background relative overflow-hidden">
+      {/* Animated background orbs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" style={{animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'}} />
+      </div>
+
       {/* Header */}
-      <header className="shrink-0 border-b border-border bg-card/50 backdrop-blur-sm">
+      <header className="relative shrink-0 border-b border-border/50 bg-background/80 backdrop-blur-lg z-10">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="sm" onClick={() => router.push('/')}>
               <Home className="h-4 w-4" />
             </Button>
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                <Sparkles className="h-4 w-4 text-primary-foreground" />
+            <div className="flex items-center gap-3 animate-fadeIn">
+              <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/20 to-cyan-500/20 ring-1 ring-violet-500/30">
+                <Sparkles className="h-4 w-4 text-violet-400 animate-pulse" />
+                <div className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
               </div>
               <div>
-                <h1 className="text-sm font-semibold text-foreground">{currentStageData.name}</h1>
+                <h1 className="text-sm font-semibold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">{currentStageData.name}</h1>
                 <p className="text-xs text-muted-foreground">{currentStageData.description}</p>
               </div>
             </div>
@@ -94,7 +101,6 @@ export default function FlowPage() {
               variant="outline"
               size="sm"
               onClick={() => router.push('/agents')}
-              className="bg-transparent"
             >
               All Agents
             </Button>
@@ -102,7 +108,6 @@ export default function FlowPage() {
               variant="outline"
               size="sm"
               onClick={() => router.push('/progress')}
-              className="bg-transparent"
             >
               Progress
             </Button>
@@ -110,9 +115,11 @@ export default function FlowPage() {
               <Button
                 size="sm"
                 onClick={() => router.push('/export')}
+                className="group shadow-md hover:shadow-lg transition-all"
               >
+                <Sparkles className="h-3.5 w-3.5 mr-1.5 group-hover:animate-spin" />
                 Generate Requirements
-                <ArrowRight className="h-4 w-4 ml-1" />
+                <ArrowRight className="h-3.5 w-3.5 ml-1.5 group-hover:translate-x-1 transition-transform" />
               </Button>
             )}
             <ThemeToggle />
@@ -121,9 +128,9 @@ export default function FlowPage() {
       </header>
 
       {/* Main Content - Split View */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="relative flex flex-1 overflow-hidden">
         {/* Chat Panel */}
-        <div className="flex-1 border-r border-border">
+        <div className="relative flex-1 border-r border-border/50 animate-fadeIn">
           <ChatInterface
             stageId={stageId}
             artifacts={session.artifacts}
@@ -132,7 +139,7 @@ export default function FlowPage() {
         </div>
         
         {/* Artifact Panel */}
-        <div className="w-[480px] bg-card/30">
+        <div className="relative w-[480px] bg-card/20 backdrop-blur-sm animate-fadeIn" style={{animationDelay: '0.1s'}}>
           <ArtifactViewer stageId={stageId} artifact={artifact} />
         </div>
       </div>

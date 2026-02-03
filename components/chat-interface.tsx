@@ -253,45 +253,47 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Compact Agent Header */}
-        <div className="border-b border-border bg-card/30 px-4 py-3">
+        <div className="border-b border-border/50 bg-gradient-to-r from-card/40 via-card/30 to-card/40 backdrop-blur-sm px-4 py-3">
           <div className="flex items-center gap-3">
-            <div className={cn('flex h-9 w-9 items-center justify-center rounded-xl', colors.bg)}>
+            <div className={cn('relative flex h-10 w-10 items-center justify-center rounded-xl ring-1 ring-inset transition-all hover:scale-105', colors.bg, 'ring-white/10')}>
               <IconComponent className={cn('h-5 w-5', colors.text)} />
+              <div className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
             </div>
-            <div>
+            <div className="flex-1">
               <div className="flex items-center gap-2">
-                <span className={cn('font-bold', colors.text)}>{stage?.agentName}</span>
-                <span className="text-xs text-muted-foreground">· {stage?.name}</span>
+                <span className={cn('font-bold text-sm', colors.text)}>{stage?.agentName}</span>
+                <span className="text-xs text-muted-foreground/70">· {stage?.name}</span>
               </div>
-              <p className="text-xs text-muted-foreground">{stage?.description}</p>
+              <p className="text-xs text-muted-foreground/80">{stage?.description}</p>
             </div>
           </div>
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        <div className="flex-1 overflow-y-auto p-6 space-y-4 relative">
         
         {messages
           .filter((m, i) => !(i === 0 && m.role === 'user' && m.parts.some(p => p.type === 'text' && p.text === 'Start coaching session')))
-          .map((message) => (
+          .map((message, index) => (
           <div
             key={message.id}
             className={cn(
-              'flex gap-2.5 items-end',
+              'flex gap-2.5 items-end animate-fadeIn',
               message.role === 'user' ? 'justify-end' : 'justify-start'
             )}
+            style={{animationDelay: `${index * 0.05}s`}}
           >
             {message.role === 'assistant' && (
-              <div className={cn('flex h-7 w-7 shrink-0 items-center justify-center rounded-lg', colors.bg)}>
+              <div className={cn('flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset ring-white/10', colors.bg)}>
                 <IconComponent className={cn('h-4 w-4', colors.text)} />
               </div>
             )}
             <div
               className={cn(
-                'max-w-[85%] rounded-2xl px-4 py-3',
+                'max-w-[85%] rounded-2xl px-4 py-3 shadow-sm transition-all hover:shadow-md',
                 message.role === 'user'
-                  ? 'bg-primary text-primary-foreground rounded-br-sm'
-                  : 'bg-muted/50 text-foreground rounded-bl-sm'
+                  ? 'bg-gradient-to-br from-primary to-primary/90 text-primary-foreground rounded-br-sm'
+                  : 'bg-card/80 backdrop-blur-sm border border-border/50 text-foreground rounded-bl-sm'
               )}
             >
               {message.parts.map((part, index) => {
@@ -306,7 +308,7 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
               })}
             </div>
             {message.role === 'user' && (
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary/20 to-primary/10 ring-1 ring-primary/20">
                 <User className="h-4 w-4 text-primary" />
               </div>
             )}
@@ -314,13 +316,13 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
         ))}
         
         {isLoading && (
-          <div className="flex gap-2.5 items-end">
-            <div className={cn('flex h-7 w-7 shrink-0 items-center justify-center rounded-lg', colors.bg)}>
+          <div className="flex gap-2.5 items-end animate-fadeIn">
+            <div className={cn('flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset ring-white/10', colors.bg)}>
               <IconComponent className={cn('h-4 w-4 animate-pulse', colors.text)} />
             </div>
-            <div className="bg-muted/50 rounded-2xl rounded-bl-sm px-3.5 py-2.5 flex items-center gap-2">
-              <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">{stage?.agentName} is thinking...</span>
+            <div className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl rounded-bl-sm px-4 py-3 flex items-center gap-2.5 shadow-sm">
+              <Loader2 className="h-4 w-4 animate-spin text-primary" />
+              <span className="text-sm text-muted-foreground">{stage?.agentName} is thinking...</span>
             </div>
           </div>
         )}
@@ -340,27 +342,30 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
 
       {/* Generate Artifact Button - Only show after user has started conversation with THIS agent */}
       {hasStarted && effectiveMessageCount > 0 && (
-        <div className="px-3 pb-3 pt-2">
+        <div className="px-4 pb-3 pt-2 border-t border-border/50 bg-card/20">
           <Button
             variant={canGenerateArtifact ? "default" : "outline"}
-            className={cn("w-full", !canGenerateArtifact && "bg-transparent")}
+            className={cn(
+              "w-full group transition-all",
+              canGenerateArtifact && "shadow-lg hover:shadow-xl"
+            )}
             onClick={handleGenerateArtifact}
             disabled={isGeneratingArtifact || isLoading || !canGenerateArtifact}
             size="sm"
           >
             {isGeneratingArtifact ? (
               <>
-                <Loader2 className="h-3.5 w-3.5 mr-2 animate-spin" />
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                 Generating...
               </>
             ) : canGenerateArtifact ? (
               <>
-                <Sparkles className="h-3.5 w-3.5 mr-2" />
+                <Sparkles className="h-4 w-4 mr-2 group-hover:animate-spin" />
                 Generate Output
               </>
             ) : (
               <>
-                <Zap className="h-3.5 w-3.5 mr-2 opacity-50" />
+                <Zap className="h-4 w-4 mr-2 opacity-50" />
                 {!hasEnoughExchanges 
                   ? `${MIN_EXCHANGES_REQUIRED - effectiveMessageCount} more answer${MIN_EXCHANGES_REQUIRED - effectiveMessageCount !== 1 ? 's' : ''} needed`
                   : `${effectiveCharCount}/${MIN_USER_CHARS_REQUIRED} characters`
@@ -372,22 +377,22 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
       )}
 
         {/* Input Form */}
-        <form onSubmit={handleSubmit} className="border-t border-border p-4 bg-card/30">
-          <div className="flex gap-2 items-end">
+        <form onSubmit={handleSubmit} className="border-t border-border/50 p-4 bg-gradient-to-t from-card/40 to-card/20 backdrop-blur-sm">
+          <div className="flex gap-3 items-end">
             <div className="flex-1">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={`Chat with ${stage?.agentName}...`}
-                className="w-full rounded-xl border border-input bg-background/50 px-4 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring focus:border-ring transition-shadow"
+                className="w-full rounded-xl border border-input/50 bg-background/50 backdrop-blur-sm px-4 py-3 text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all shadow-sm"
                 disabled={isLoading || !hasStarted}
               />
             </div>
             <Button 
               type="submit" 
               size="icon" 
-              className="h-10 w-10 rounded-xl shrink-0" 
+              className="h-11 w-11 rounded-xl shrink-0 shadow-md hover:shadow-lg transition-all" 
               disabled={!input.trim() || isLoading || !hasStarted}
             >
               {isLoading ? (
@@ -400,12 +405,15 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
           
           {/* Progress indicator */}
           {hasStarted && effectiveMessageCount > 0 && (
-            <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
-              <span>
+            <div className="mt-3 flex items-center justify-between text-xs">
+              <span className="text-muted-foreground/70">
                 {effectiveMessageCount}/{MIN_EXCHANGES_REQUIRED} responses · {effectiveCharCount}/{MIN_USER_CHARS_REQUIRED} chars
               </span>
               {canGenerateArtifact && (
-                <span className={cn('font-medium', colors.text)}>Ready to generate ✓</span>
+                <span className={cn('font-semibold flex items-center gap-1', colors.text)}>
+                  <Sparkles className="h-3 w-3" />
+                  Ready to generate
+                </span>
               )}
             </div>
           )}
@@ -413,26 +421,26 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
       </div>
 
       {/* Right Sidebar - Agent Info & Context */}
-      <div className="w-80 border-l border-border bg-card/20 flex flex-col overflow-hidden">
+      <div className="w-80 border-l border-border/50 bg-gradient-to-b from-card/30 to-card/20 backdrop-blur-sm flex flex-col overflow-hidden">
         {/* Agent Details */}
-        <div className="p-4 border-b border-border bg-card/50">
-          <div className="flex items-start gap-3 mb-3">
-            <div className={cn('flex h-12 w-12 items-center justify-center rounded-xl ring-1 ring-inset', colors.bg, colors.text)}>
-              <IconComponent className="h-6 w-6" />
+        <div className="p-4 border-b border-border/50 bg-gradient-to-br from-card/50 to-card/30">
+          <div className="flex items-start gap-3 mb-4">
+            <div className={cn('flex h-12 w-12 items-center justify-center rounded-xl ring-2 ring-inset transition-all hover:scale-105', colors.bg, 'ring-white/10')}>
+              <IconComponent className={cn("h-6 w-6", colors.text)} />
             </div>
             <div className="flex-1">
-              <h3 className={cn('font-bold text-sm', colors.text)}>{stage?.agentName}</h3>
-              <p className="text-xs text-muted-foreground mt-0.5">{stage?.intro}</p>
+              <h3 className={cn('font-bold text-sm mb-1', colors.text)}>{stage?.agentName}</h3>
+              <p className="text-xs text-muted-foreground/80 leading-relaxed">{stage?.intro}</p>
             </div>
           </div>
           
           {/* Output expectation */}
-          <div className={cn('px-3 py-2 rounded-lg border text-xs', colors.border, colors.bg)}>
+          <div className={cn('px-3 py-2.5 rounded-lg border backdrop-blur-sm shadow-sm', colors.border, colors.bg)}>
             <div className="flex items-start gap-2">
-              <Sparkles className={cn('h-3.5 w-3.5 shrink-0 mt-0.5', colors.text)} />
-              <div>
-                <span className="font-medium text-foreground">Output: </span>
-                <span className="text-muted-foreground">{stage?.deliverable}</span>
+              <Sparkles className={cn('h-4 w-4 shrink-0 mt-0.5', colors.text)} />
+              <div className="text-xs">
+                <span className="font-semibold text-foreground">Output: </span>
+                <span className="text-muted-foreground/90">{stage?.deliverable}</span>
               </div>
             </div>
           </div>

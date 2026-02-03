@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Bot } from 'lucide-react'
 
-export function Footer() {
+function Footer() {
   return (
     <footer className="border-t border-border/50 bg-card/30 backdrop-blur-sm mt-auto">
       <div className="container mx-auto px-6 py-12">
@@ -88,3 +88,6 @@ export function Footer() {
     </footer>
   )
 }
+
+export { Footer }
+export default Footer

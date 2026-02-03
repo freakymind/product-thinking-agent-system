@@ -3,20 +3,20 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/theme-toggle'
-import { Footer } from '@/components/footer'
 import { ArrowLeft, Bot, Cpu, Network, Sparkles, Zap, Lock } from 'lucide-react'
+import Footer from '@/components/footer' // Import the Footer component
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 border-b border-border/50 bg-background/95 backdrop-blur">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/20">
-              <Bot className="h-5 w-5 text-violet-400" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500">
+              <Bot className="h-5 w-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-foreground">Agent PM</span>
+            <span className="text-xl font-semibold text-foreground">Requirements Platform</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/">
@@ -32,11 +32,11 @@ export default function AboutPage() {
 
       <main className="flex-1 container max-w-4xl mx-auto px-6 py-16">
         <div className="mb-12">
-          <h1 className="text-5xl font-bold text-foreground mb-6">
-            About Agent PM
+          <h1 className="text-4xl font-bold text-foreground mb-4">
+            Platform Overview
           </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            An agentic AI system that transforms product ideas into comprehensive requirements through autonomous agent collaboration.
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            AI-powered requirements engineering platform using specialized agents for structured, validated product specifications.
           </p>
         </div>
 
@@ -116,48 +116,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Privacy First */}
-        <section className="mb-16">
-          <div className="rounded-xl border-2 border-emerald-500/30 bg-emerald-500/10 p-8">
-            <div className="flex items-start gap-4 mb-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20">
-                <Lock className="h-6 w-6 text-emerald-400" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-foreground mb-2">Privacy-First Architecture</h3>
-                <p className="text-muted-foreground mb-4">
-                  Your requirements stay in your browser. When you provide your own API keys, all data flows directly from your browser to the LLM provider—we never see, store, or access your ideas, conversations, or requirements.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Link href="/privacy">
-                    <Button variant="outline" size="sm" className="bg-transparent border-emerald-500/30 hover:bg-emerald-500/20">
-                      Privacy Policy
-                    </Button>
-                  </Link>
-                  <Link href="/privacy-architecture">
-                    <Button variant="outline" size="sm" className="bg-transparent border-emerald-500/30 hover:bg-emerald-500/20">
-                      View Architecture Docs
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="grid md:grid-cols-3 gap-4 mt-6">
-              <div className="flex items-center gap-2 text-sm">
-                <div className="h-2 w-2 rounded-full bg-emerald-400" />
-                <span className="text-muted-foreground">100% Browser Storage</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <div className="h-2 w-2 rounded-full bg-emerald-400" />
-                <span className="text-muted-foreground">Direct API Calls</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <div className="h-2 w-2 rounded-full bg-emerald-400" />
-                <span className="text-muted-foreground">Zero Server Storage</span>
-              </div>
-            </div>
-          </div>
-        </section>
+
 
         {/* The Agents */}
         <section className="mb-16">
@@ -200,24 +159,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="rounded-2xl border-2 border-violet-500/20 bg-gradient-to-br from-violet-500/5 to-violet-500/10 p-8 text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-4">
-            Try It Yourself
-          </h2>
-          <p className="text-muted-foreground mb-6">
-            Experience autonomous agent collaboration. Start with ATLAS and watch the system build your requirements.
-          </p>
-          <Link href="/">
-            <Button size="lg">
-              Get Started
-              <Bot className="h-5 w-5 ml-2" />
-            </Button>
-          </Link>
-        </section>
       </main>
-
-      <Footer />
     </div>
   )
 }

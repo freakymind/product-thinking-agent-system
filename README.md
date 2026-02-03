@@ -81,7 +81,7 @@ If you're using Agent PM for commercial purposes, you need a license:
 
 ## Development
 
-```bash
+\`\`\`bash
 # Install dependencies
 npm install
 
@@ -90,7 +90,7 @@ npm run dev
 
 # Build for production
 npm run build
-```
+\`\`\`
 
 ## Configuration
 

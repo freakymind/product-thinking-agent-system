@@ -6,7 +6,7 @@ Agent PM is designed with **privacy-first architecture** where all your data sta
 
 ## Data Flow Architecture
 
-```
+\`\`\`
 ┌─────────────────────────────────────────────────────────────┐
 │                         YOUR BROWSER                         │
 │                                                              │
@@ -37,7 +37,7 @@ Agent PM is designed with **privacy-first architecture** where all your data sta
         │                           │              │
         └───────────────────────────┴──────────────┘
                    LLM Provider APIs
-```
+\`\`\`
 
 ## How It Works
 
@@ -78,7 +78,7 @@ All your data is stored in your browser's localStorage:
 
 ### 3. **Client-Side Architecture**
 
-```javascript
+\`\`\`javascript
 // Example: How API calls work with your key
 // File: /app/api/chat/[stage]/route.ts
 
@@ -101,11 +101,11 @@ export async function POST(request: Request) {
   
   // NOTE: At no point do we store or log your data
 }
-```
+\`\`\`
 
 ### 4. **Session Management**
 
-```javascript
+\`\`\`javascript
 // File: /lib/session-store.ts
 // Uses Zustand with localStorage persistence
 
@@ -122,7 +122,7 @@ export const useSessionStore = create<SessionStore>()(
     }
   )
 )
-```
+\`\`\`
 
 ## Privacy Guarantees
 
@@ -175,11 +175,11 @@ You can verify this architecture:
    - No data sent to Agent PM servers (except page loads)
 
 2. **Inspect localStorage**: 
-   ```javascript
+   \`\`\`javascript
    // In browser console:
    console.log(localStorage.getItem('product-coach-session'))
    // You'll see all your data is stored locally
-   ```
+   \`\`\`
 
 3. **Review Source Code**: 
    - Check `/app/api/chat/[stage]/route.ts` for API logic

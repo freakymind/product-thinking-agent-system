@@ -62,7 +62,9 @@ export default function HomePage() {
   }
   
   const handleGetStarted = () => {
-    // Placeholder for handleGetStarted logic
+    if (!session) {
+      createSession()
+    }
     router.push('/agents')
   }
 
@@ -85,21 +87,21 @@ export default function HomePage() {
             </Link>
             {session && (
               <>
-                <Button variant="outline" size="sm" onClick={() => router.push('/progress')} className="bg-transparent">
+                <Button variant="outline" size="sm" onClick={() => router.push('/progress')}>
                   View Progress
                 </Button>
-                <Button variant="outline" size="sm" onClick={handleNewFeature} className="bg-transparent">
+                <Button variant="outline" size="sm" onClick={handleNewFeature}>
                   <Plus className="h-4 w-4 mr-2" />
                   New Feature
                 </Button>
-                <Button variant="outline" size="sm" onClick={handleCompleteReset} className="bg-transparent text-destructive hover:text-destructive">
+                <Button variant="outline" size="sm" onClick={handleCompleteReset} className="text-destructive hover:text-destructive bg-transparent">
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Reset All
                 </Button>
               </>
             )}
             <Link href="/settings">
-              <Button variant="ghost" size="sm" className="bg-transparent">
+              <Button variant="ghost" size="sm">
                 <Settings className="h-4 w-4" />
               </Button>
             </Link>

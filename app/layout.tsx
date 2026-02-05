@@ -9,9 +9,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Product Coach - Transform Ideas into Requirements',
-  description: 'AI-powered coaching that guides you through product thinking, from problem framing to prioritized features with data schemas.',
-  generator: 'v0.app',
+  title: 'Requirements Discovery Tool - Internal System',
+  description: 'Internal AI-guided requirements discovery system. Nine specialized agents help teams develop comprehensive product requirements through structured conversations.',
   icons: {
     icon: [
       {
@@ -29,6 +28,7 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-icon.png',
   },
+    generator: 'v0.app'
 }
 
 export default function RootLayout({

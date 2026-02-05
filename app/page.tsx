@@ -77,12 +77,12 @@ export default function HomePage() {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-foreground">
               <Bot className="h-5 w-5 text-background" />
             </div>
-            <span className="text-xl font-bold text-foreground">Agent PM</span>
+            <span className="text-xl font-bold text-foreground">Requirements Discovery</span>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/research">
-              <Button variant="ghost" size="sm" className="bg-transparent">
-                Research
+            <Link href="/about">
+              <Button variant="ghost" size="sm">
+                About
               </Button>
             </Link>
             {session && (
@@ -144,20 +144,20 @@ export default function HomePage() {
           <div className="relative mx-auto max-w-5xl text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-card/50 px-4 py-1.5 mb-8 backdrop-blur-sm animate-slideInDown">
               <Bot className="h-4 w-4 text-violet-400 animate-bounce" />
-              <span className="text-sm text-muted-foreground">10 Specialized Agentic AI Systems</span>
+              <span className="text-sm text-muted-foreground">Internal Product Thinking System</span>
               <Zap className="h-3.5 w-3.5 text-amber-400 animate-pulse" />
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-6 text-balance leading-tight animate-fadeIn">
-              Product requirements built by
+              Requirements Discovery
               <br />
               <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent animate-gradientShift">
-                autonomous AI agents
+                Through AI Collaboration
               </span>
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 leading-relaxed animate-fadeIn" style={{animationDelay: '0.2s'}}>
-              Watch specialized agents collaborate autonomously—each expert tackles one domain, shares context, and builds on previous insights to transform vague ideas into production-ready requirements.
+              Our internal AI agent system helps teams think through product requirements systematically. Nine specialized agents guide you through discovery, validation, and documentation.
             </p>
             
             <div className="flex items-center justify-center gap-6 mb-12 text-sm text-muted-foreground animate-fadeIn" style={{animationDelay: '0.4s'}}>
@@ -192,12 +192,9 @@ export default function HomePage() {
                 <>
                   <Button size="lg" onClick={handleGetStarted} className="h-14 px-10 text-base group">
                     <Sparkles className="h-5 w-5 mr-2 group-hover:animate-spin" />
-                    Start Building Requirements
+                    Start Requirements Discovery
                     <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Free for personal use · <Link href="/licensing" className="underline hover:text-foreground">Commercial license</Link> for business
-                  </p>
                 </>
               )}
             </div>
@@ -209,31 +206,31 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center group">
               <div className="flex items-center justify-center gap-2 mb-1">
-                <p className="text-4xl font-bold text-foreground">10</p>
+                <p className="text-4xl font-bold text-foreground">9</p>
                 <Bot className="h-5 w-5 text-violet-400 group-hover:animate-spin" />
               </div>
-              <p className="text-sm text-muted-foreground">Autonomous Agents</p>
+              <p className="text-sm text-muted-foreground">Specialized Agents</p>
             </div>
             <div className="text-center group">
               <div className="flex items-center justify-center gap-2 mb-1">
                 <p className="text-4xl font-bold text-foreground">100%</p>
                 <Zap className="h-5 w-5 text-amber-400 group-hover:animate-bounce" />
               </div>
-              <p className="text-sm text-muted-foreground">Auto Context Flow</p>
+              <p className="text-sm text-muted-foreground">Context Preserved</p>
             </div>
             <div className="text-center group">
               <div className="flex items-center justify-center gap-2 mb-1">
-                <p className="text-4xl font-bold text-foreground">0</p>
-                <Target className="h-5 w-5 text-emerald-400 group-hover:scale-110 transition-transform" />
+                <p className="text-4xl font-bold text-foreground">Local</p>
+                <Lock className="h-5 w-5 text-emerald-400 group-hover:scale-110 transition-transform" />
               </div>
-              <p className="text-sm text-muted-foreground">Manual Handoffs</p>
+              <p className="text-sm text-muted-foreground">Data Storage</p>
             </div>
             <div className="text-center group">
               <div className="flex items-center justify-center gap-2 mb-1">
-                <p className="text-4xl font-bold text-foreground">∞</p>
+                <p className="text-4xl font-bold text-foreground">Internal</p>
                 <Sparkles className="h-5 w-5 text-cyan-400 group-hover:animate-pulse" />
               </div>
-              <p className="text-sm text-muted-foreground">Deep Insights</p>
+              <p className="text-sm text-muted-foreground">Tool</p>
             </div>
           </div>
         </section>
@@ -255,13 +252,13 @@ export default function HomePage() {
                   <div className="h-2 w-2 rounded-full bg-cyan-400" style={{animation: 'blink 1.5s ease-in-out infinite 0.3s'}} />
                   <div className="h-2 w-2 rounded-full bg-emerald-400" style={{animation: 'blink 1.5s ease-in-out infinite 0.6s'}} />
                 </div>
-                <span className="text-sm font-medium text-muted-foreground">Autonomous Collaboration</span>
+                <span className="text-sm font-medium text-muted-foreground">Discovery Framework</span>
               </div>
               <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Meet Your Agentic AI Team
+                Nine Specialized Discovery Agents
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Each agent runs independently, shares discoveries, and builds on previous work—no human orchestration needed.
+                Each agent focuses on a specific aspect of product thinking, guiding you through a structured discovery process.
               </p>
             </div>
             

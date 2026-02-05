@@ -144,7 +144,7 @@ export default function HomePage() {
           <div className="relative mx-auto max-w-5xl text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-card/50 px-4 py-1.5 mb-8 backdrop-blur-sm animate-slideInDown">
               <Bot className="h-4 w-4 text-violet-400 animate-bounce" />
-              <span className="text-sm text-muted-foreground">Internal Product Thinking System</span>
+              <span className="text-sm text-muted-foreground">10 AI Agents · Discovery to Testing</span>
               <Zap className="h-3.5 w-3.5 text-amber-400 animate-pulse" />
             </div>
             
@@ -157,7 +157,7 @@ export default function HomePage() {
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 leading-relaxed animate-fadeIn" style={{animationDelay: '0.2s'}}>
-              Our internal AI agent system helps teams think through product requirements systematically. Nine specialized agents guide you through discovery, validation, and documentation.
+              Our internal AI agent system helps teams think through product requirements systematically. Ten specialized agents guide you through discovery, validation, documentation, and testing.
             </p>
             
             <div className="flex items-center justify-center gap-6 mb-12 text-sm text-muted-foreground animate-fadeIn" style={{animationDelay: '0.4s'}}>
@@ -206,7 +206,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center group">
               <div className="flex items-center justify-center gap-2 mb-1">
-                <p className="text-4xl font-bold text-foreground">9</p>
+                <p className="text-4xl font-bold text-foreground">10</p>
                 <Bot className="h-5 w-5 text-violet-400 group-hover:animate-spin" />
               </div>
               <p className="text-sm text-muted-foreground">Specialized Agents</p>
@@ -255,10 +255,10 @@ export default function HomePage() {
                 <span className="text-sm font-medium text-muted-foreground">Discovery Framework</span>
               </div>
               <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Nine Specialized Discovery Agents
+                Ten Specialized Agents
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Each agent focuses on a specific aspect of product thinking, guiding you through a structured discovery process.
+                Each agent focuses on a specific aspect of product thinking, from discovery and validation to testable specifications.
               </p>
             </div>
             

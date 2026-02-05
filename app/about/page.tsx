@@ -16,7 +16,7 @@ export default function AboutPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/20">
               <Bot className="h-5 w-5 text-violet-400" />
             </div>
-            <span className="text-xl font-bold text-foreground">Agent PM</span>
+            <span className="text-xl font-bold text-foreground">Requirements Discovery</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/">
@@ -33,19 +33,19 @@ export default function AboutPage() {
       <main className="flex-1 container max-w-4xl mx-auto px-6 py-16">
         <div className="mb-12">
           <h1 className="text-5xl font-bold text-foreground mb-6">
-            About Agent PM
+            About This Tool
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            An agentic AI system that transforms product ideas into comprehensive requirements through autonomous agent collaboration.
+            An internal product thinking system that helps teams develop comprehensive requirements through guided discovery conversations with specialized AI agents.
           </p>
         </div>
 
-        {/* The Problem */}
+        {/* The Purpose */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-foreground mb-4">The Problem We Solve</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-4">Why We Built This</h2>
           <div className="prose prose-invert max-w-none">
             <p className="text-muted-foreground mb-4">
-              Most product failures aren't due to bad ideas—they fail because of poor requirements. Teams rush to solutions without understanding the problem, skip validation, and build features based on assumptions rather than evidence.
+              Product teams often rush to solutions without thoroughly exploring the problem space. This tool provides a structured framework for discovery, helping teams think through requirements systematically before committing to implementation.
             </p>
             <p className="text-muted-foreground">
               Traditional requirements processes are manual, time-consuming, and inconsistent. Different PMs follow different frameworks, leading to incomplete documentation and missed critical thinking steps.
@@ -55,7 +55,7 @@ export default function AboutPage() {
 
         {/* How It Works */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-foreground mb-6">How Agentic AI Works</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-6">How The System Works</h2>
           
           <div className="space-y-6">
             <div className="rounded-xl border border-border/50 bg-card/30 p-6">
@@ -64,9 +64,9 @@ export default function AboutPage() {
                   <Network className="h-6 w-6 text-violet-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Autonomous Collaboration</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">Specialized Discovery Agents</h3>
                   <p className="text-muted-foreground">
-                    Unlike traditional chatbots that need constant prompting, Agent PM uses 10 specialized agents that work autonomously. Each agent is an expert in one domain—signal collection, problem framing, validation, solution design, etc.
+                    The system includes 9 specialized agents, each focusing on a specific aspect of product thinking—from problem identification and user research to technical architecture and success metrics.
                   </p>
                 </div>
               </div>
@@ -78,9 +78,9 @@ export default function AboutPage() {
                   <Cpu className="h-6 w-6 text-cyan-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Context Handoffs</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">Context Flow</h3>
                   <p className="text-muted-foreground">
-                    When you talk to an agent, it automatically receives everything previous agents discovered. No copy-paste, no re-explaining—agents read each other's work and build on it. This creates a cumulative intelligence that gets smarter with each conversation.
+                    Each agent receives context from previous conversations, building a cumulative understanding of your project. No need to repeat information—the system maintains context across all discovery sessions.
                   </p>
                 </div>
               </div>
@@ -92,9 +92,9 @@ export default function AboutPage() {
                   <Sparkles className="h-6 w-6 text-emerald-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Structured Generation</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">Structured Artifacts</h3>
                   <p className="text-muted-foreground">
-                    Each agent generates structured artifacts (not just chat responses). These artifacts—problem statements, JTBD frameworks, RICE scores, data schemas—become building blocks for your final PRD. The system synthesizes them into a comprehensive requirements document.
+                    Each agent produces structured outputs like problem statements, user research frameworks, technical specifications, and success metrics. These artifacts are automatically compiled into a comprehensive requirements document.
                   </p>
                 </div>
               </div>
@@ -106,9 +106,9 @@ export default function AboutPage() {
                   <Zap className="h-6 w-6 text-purple-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">AI Strategy Integration</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">Export & Documentation</h3>
                   <p className="text-muted-foreground">
-                    After requirements are complete, SAGE (our AI Strategist) analyzes your solution and recommends where AI/ML can add value. It suggests specific models (GPT-4, Claude, BERT, etc.), implementation approaches, and data requirements—making AI integration part of your planning, not an afterthought.
+                    Generate comprehensive requirements documents in multiple formats. The system synthesizes all agent outputs into production-ready documentation for your development team.
                   </p>
                 </div>
               </div>
@@ -116,7 +116,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Privacy First */}
+        {/* Data Storage */}
         <section className="mb-16">
           <div className="rounded-xl border-2 border-emerald-500/30 bg-emerald-500/10 p-8">
             <div className="flex items-start gap-4 mb-4">
@@ -124,36 +124,10 @@ export default function AboutPage() {
                 <Lock className="h-6 w-6 text-emerald-400" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-foreground mb-2">Privacy-First Architecture</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-2">Local Data Storage</h3>
                 <p className="text-muted-foreground mb-4">
-                  Your requirements stay in your browser. When you provide your own API keys, all data flows directly from your browser to the LLM provider—we never see, store, or access your ideas, conversations, or requirements.
+                  This tool stores all data locally in your browser. Your conversations, requirements, and project data remain on your device. Configure your own AI provider API keys to maintain complete control over data flow.
                 </p>
-                <div className="flex flex-wrap gap-3">
-                  <Link href="/privacy">
-                    <Button variant="outline" size="sm" className="bg-transparent border-emerald-500/30 hover:bg-emerald-500/20">
-                      Privacy Policy
-                    </Button>
-                  </Link>
-                  <Link href="/privacy-architecture">
-                    <Button variant="outline" size="sm" className="bg-transparent border-emerald-500/30 hover:bg-emerald-500/20">
-                      View Architecture Docs
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="grid md:grid-cols-3 gap-4 mt-6">
-              <div className="flex items-center gap-2 text-sm">
-                <div className="h-2 w-2 rounded-full bg-emerald-400" />
-                <span className="text-muted-foreground">100% Browser Storage</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <div className="h-2 w-2 rounded-full bg-emerald-400" />
-                <span className="text-muted-foreground">Direct API Calls</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <div className="h-2 w-2 rounded-full bg-emerald-400" />
-                <span className="text-muted-foreground">Zero Server Storage</span>
               </div>
             </div>
           </div>

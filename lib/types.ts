@@ -162,6 +162,22 @@ export const STAGES = [
     ],
     deliverable: 'AI opportunities with specific model recommendations and implementation guidance.',
   },
+  { 
+    id: 'testScenarios', 
+    name: 'Test Engineer',
+    agentName: 'GHERKIN',
+    icon: 'check-circle',
+    color: 'green',
+    description: 'Converts requirements into Cucumber testable scenarios',
+    intro: 'I transform requirements into testable specifications. Using Cucumber and Gherkin syntax, I will help you create comprehensive test scenarios with Given-When-Then format.',
+    thinkAbout: [
+      'What are the key user flows that need testing?',
+      'What edge cases and error conditions exist?',
+      'What validation rules need verification?',
+      'How should the system behave in different scenarios?',
+    ],
+    deliverable: 'Cucumber feature files with Gherkin scenarios including happy paths, edge cases, and data-driven tests.',
+  },
 ] as const
 
 export type StageId = typeof STAGES[number]['id']
@@ -347,6 +363,39 @@ export const AIStrategySchema = z.object({
   priority_recommendations: z.array(z.string()).describe('Which AI opportunities to pursue first'),
 })
 
+// Agent 10: Test Scenarios (Cucumber/Gherkin)
+export const GherkinScenarioStepSchema = z.object({
+  keyword: z.enum(['Given', 'When', 'Then', 'And', 'But']),
+  text: z.string().describe('Step description'),
+})
+
+export const GherkinScenarioSchema = z.object({
+  scenario_type: z.enum(['Scenario', 'Scenario Outline']),
+  title: z.string().describe('Scenario title'),
+  steps: z.array(GherkinScenarioStepSchema),
+  examples: z.array(z.object({
+    parameters: z.array(z.string()),
+    data_rows: z.array(z.array(z.string())),
+  })).optional().describe('For Scenario Outline - example data tables'),
+})
+
+export const GherkinFeatureSchema = z.object({
+  feature_name: z.string(),
+  user_story: z.object({
+    as_a: z.string().describe('User role'),
+    i_want: z.string().describe('User goal'),
+    so_that: z.string().describe('Business value'),
+  }),
+  background: z.array(GherkinScenarioStepSchema).optional().describe('Common preconditions'),
+  scenarios: z.array(GherkinScenarioSchema),
+})
+
+export const TestScenariosSchema = z.object({
+  features: z.array(GherkinFeatureSchema),
+  coverage_summary: z.string().describe('Overview of test coverage'),
+  test_data_requirements: z.array(z.string()).describe('Test data needed'),
+})
+
 // Type exports
 export type ProblemFrame = z.infer<typeof ProblemFrameSchema>
 export type Persona = z.infer<typeof PersonaSchema>
@@ -366,3 +415,7 @@ export type AIOpportunity = z.infer<typeof AIOpportunitySchema>
 export type AIStrategy = z.infer<typeof AIStrategySchema>
 export type RawSignals = z.infer<typeof RawSignalsSchema>
 export type ProjectContext = z.infer<typeof ProjectContextSchema>
+export type GherkinScenarioStep = z.infer<typeof GherkinScenarioStepSchema>
+export type GherkinScenario = z.infer<typeof GherkinScenarioSchema>
+export type GherkinFeature = z.infer<typeof GherkinFeatureSchema>
+export type TestScenarios = z.infer<typeof TestScenariosSchema>

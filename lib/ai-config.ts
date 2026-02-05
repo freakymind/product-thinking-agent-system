@@ -1,48 +1,49 @@
 /**
- * Centralized AI Configuration
- * 
  * ============================================================================
- * HOW TO CONFIGURE YOUR OWN LLM PROVIDER
+ * INTERNAL REQUIREMENTS DISCOVERY TOOL - CONFIGURATION
  * ============================================================================
  * 
- * OPTION 1: Use Vercel AI Gateway (Default - No Setup Required)
- * - Works automatically in v0 environment
- * - Supported providers: OpenAI, Anthropic, Google, AWS Bedrock, Fireworks
- * - Model format: "provider/model-name" (e.g., "openai/gpt-4o", "anthropic/claude-sonnet-4")
+ * This file contains all system configuration. Set these values once during
+ * initial setup. No runtime settings UI is provided - all configuration is
+ * done here.
  * 
- * OPTION 2: Use Your Own API Key
- * - Set environment variable: OPENAI_API_KEY, ANTHROPIC_API_KEY, etc.
- * - The AI SDK will automatically detect and use your API key
- * - Model format remains the same: "openai/gpt-4o"
+ * SETUP INSTRUCTIONS:
  * 
- * OPTION 3: Use Custom Provider (e.g., Azure OpenAI, self-hosted)
- * - Install the provider package: npm install @ai-sdk/azure
- * - Import and configure in this file
- * - Update the MODEL_STRING below
+ * 1. API KEY CONFIGURATION
+ *    Set your API key as an environment variable:
+ *    - For OpenAI: OPENAI_API_KEY=sk-...
+ *    - For Anthropic: ANTHROPIC_API_KEY=sk-ant-...
+ *    - The system will automatically use these keys
+ * 
+ * 2. MODEL SELECTION
+ *    Update PRIMARY_MODEL and FAST_MODEL below with your preferred models
+ * 
+ * 3. ADVANCED SETTINGS
+ *    Adjust temperature, max tokens, and other parameters as needed
  * 
  * ============================================================================
  */
 
 // ============================================================================
-// MAIN CONFIGURATION - CHANGE THESE VALUES
+// MAIN CONFIGURATION - EDIT THESE VALUES
 // ============================================================================
 
 /**
  * PRIMARY MODEL
- * This is the main model used for all coaching conversations and artifact generation.
+ * Main model used for all agent conversations and artifact generation.
  * 
  * Recommended options:
- * - "openai/gpt-4o"           - Best overall (default)
- * - "openai/gpt-4o-mini"      - Faster, cheaper, good for testing
- * - "anthropic/claude-sonnet-4"   - Alternative to GPT-4o
- * - "anthropic/claude-opus-4.5" - Most capable Anthropic model
+ * - "openai/gpt-4o"              - Best overall balance (default)
+ * - "openai/gpt-4o-mini"         - Faster, more cost-effective
+ * - "anthropic/claude-sonnet-4"  - Strong alternative to GPT-4o
+ * - "anthropic/claude-opus-4.5"  - Most capable for complex reasoning
  */
 export const PRIMARY_MODEL = 'openai/gpt-4o'
 
 /**
- * FAST MODEL (optional)
- * Used for quick operations like classification or simple responses.
- * Set to same as PRIMARY_MODEL if you want consistent behavior.
+ * FAST MODEL
+ * Used for quick operations and simple responses.
+ * Can be set to same as PRIMARY_MODEL for consistency.
  */
 export const FAST_MODEL = 'openai/gpt-4o-mini'
 
@@ -50,21 +51,49 @@ export const FAST_MODEL = 'openai/gpt-4o-mini'
 // ADVANCED CONFIGURATION
 // ============================================================================
 
-// Temperature settings for different use cases
+/**
+ * TEMPERATURE SETTINGS
+ * Controls response creativity and randomness.
+ * - Lower (0.0-0.3): More deterministic, focused outputs
+ * - Medium (0.4-0.7): Balanced creativity and consistency
+ * - Higher (0.8-2.0): More creative and varied responses
+ */
 export const TEMPERATURE = {
-  // Lower temperature for structured, consistent outputs (artifact generation)
-  structured: 0.3,
-  // Balanced for general conversation (coaching)
-  balanced: 0.7,
-  // Higher for creative exploration
-  creative: 0.9,
+  structured: 0.3,  // For artifact generation and structured outputs
+  balanced: 0.7,    // For general agent conversations
+  creative: 0.9,    // For brainstorming and exploration
 } as const
 
-// Max tokens configuration
+/**
+ * MAX TOKENS
+ * Controls maximum response length.
+ */
 export const MAX_TOKENS = {
-  short: 1024,    // Quick responses
-  medium: 2048,   // Regular conversation
-  long: 4096,     // Artifact generation
+  short: 1024,    // Quick responses and confirmations
+  medium: 2048,   // Standard conversation responses
+  long: 4096,     // Comprehensive artifact generation
+} as const
+
+/**
+ * FEATURE FLAGS
+ * Enable or disable specific system features.
+ */
+export const FEATURES = {
+  streamingResponses: true,      // Enable real-time response streaming
+  contextMemory: true,           // Preserve conversation context across agents
+  autoSaveProgress: true,        // Automatically save session progress
+  exportFormats: ['markdown', 'pdf', 'json'] as const,  // Available export formats
+} as const
+
+/**
+ * SYSTEM LIMITS
+ * Configure operational limits.
+ */
+export const LIMITS = {
+  minExchangesForArtifact: 3,    // Minimum Q&A exchanges before generating artifact
+  minCharsForArtifact: 100,      // Minimum total user input characters
+  maxContextLength: 16000,       // Maximum context window size
+  sessionTimeout: 24 * 60 * 60 * 1000,  // 24 hours in milliseconds
 } as const
 
 // ============================================================================

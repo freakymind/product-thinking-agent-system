@@ -66,7 +66,7 @@ export default function AboutPage() {
                 <div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">Specialized Discovery Agents</h3>
                   <p className="text-muted-foreground">
-                    The system includes 9 specialized agents, each focusing on a specific aspect of product thinking—from problem identification and user research to technical architecture and success metrics.
+                    The system includes 10 specialized agents, each focusing on a specific aspect of product thinking—from problem identification and user research to technical architecture, success metrics, and testable specifications.
                   </p>
                 </div>
               </div>
@@ -148,6 +148,7 @@ export default function AboutPage() {
               { name: 'FLUX', role: 'Feature Designer', desc: 'Defines buildable features with success criteria' },
               { name: 'PRIME', role: 'Priority Oracle', desc: 'Ranks features using RICE framework' },
               { name: 'SAGE', role: 'AI Strategist', desc: 'Identifies AI opportunities and recommends models' },
+              { name: 'GHERKIN', role: 'Test Engineer', desc: 'Converts requirements into Cucumber testable scenarios' },
             ].map((agent) => (
               <div key={agent.name} className="rounded-lg border border-border/50 bg-card/20 p-4">
                 <p className="font-bold text-foreground mb-1">{agent.name}</p>

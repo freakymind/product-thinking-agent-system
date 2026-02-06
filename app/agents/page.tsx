@@ -45,7 +45,12 @@ export default function AgentsPage() {
     return null
   }
   
+  console.log('[v0] Session completed stages:', session.completedStages)
+  console.log('[v0] ATLAS agent ID:', STAGES[0].id)
+  
   const atlasCompleted = session.completedStages.includes('context')
+  console.log('[v0] ATLAS completed?', atlasCompleted)
+  
   const atlasAgent = STAGES[0]
   const otherAgents = STAGES.slice(1)
   

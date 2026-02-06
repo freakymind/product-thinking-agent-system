@@ -94,13 +94,21 @@ export const useSessionStore = create<SessionStore>()(
       completeStage: (stage) => {
         const session = get().session
         if (!session) return
+        
+        console.log('[v0] Completing stage:', stage)
+        console.log('[v0] Current completed stages:', session.completedStages)
+        
         const completedStages = session.completedStages.includes(stage)
           ? session.completedStages
           : [...session.completedStages, stage]
         
+        console.log('[v0] New completed stages:', completedStages)
+        
         // Auto-advance to next stage
         const currentIndex = STAGES.findIndex(s => s.id === stage)
         const nextStage = STAGES[currentIndex + 1]?.id || stage
+        
+        console.log('[v0] Next stage:', nextStage)
         
         set({
           session: {

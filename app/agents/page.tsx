@@ -19,6 +19,7 @@ const ICON_MAP = {
   puzzle: Puzzle,
   trophy: Trophy,
   zap: Zap,
+  'check-circle': CheckCircle2,
 }
 
 const COLOR_MAP = {
@@ -32,6 +33,7 @@ const COLOR_MAP = {
   emerald: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', border: 'border-emerald-500/20' },
   orange: { bg: 'bg-orange-500/10', text: 'text-orange-500', border: 'border-orange-500/20' },
   purple: { bg: 'bg-purple-500/10', text: 'text-purple-500', border: 'border-purple-500/20' },
+  green: { bg: 'bg-green-500/10', text: 'text-green-500', border: 'border-green-500/20' },
 }
 
 export default function AgentsPage() {

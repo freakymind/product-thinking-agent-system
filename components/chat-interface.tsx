@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils'
 import type { StageId } from '@/lib/types'
 import { STAGES } from '@/lib/types'
 import { useSessionStore } from '@/lib/session-store'
-import { Send, Loader2, Sparkles, User, Compass, Ear, Frame, Users, ShieldCheck, Lightbulb, Database, Puzzle, Trophy, Bot, Zap } from 'lucide-react'
+import { Send, Loader2, Sparkles, User, Compass, Ear, Frame, Users, ShieldCheck, Lightbulb, Database, Puzzle, Trophy, Bot, Zap, CheckCircle2 } from 'lucide-react'
 import { StageIntro } from '@/components/stage-intro'
 import { PreviousContextSummary } from '@/components/previous-context-summary'
 
@@ -26,6 +26,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   puzzle: Puzzle,
   trophy: Trophy,
   zap: Zap,
+  'check-circle': CheckCircle2,
 }
 
 // Map color names to Tailwind classes
@@ -40,6 +41,7 @@ const COLOR_MAP: Record<string, { bg: string; text: string; border?: string }> =
   emerald: { bg: 'bg-emerald-500/20', text: 'text-emerald-400' },
   orange: { bg: 'bg-orange-500/20', text: 'text-orange-400' },
   purple: { bg: 'bg-purple-500/20', text: 'text-purple-400' },
+  green: { bg: 'bg-green-500/20', text: 'text-green-400', border: 'border-green-500/20' },
 }
 
 interface ChatInterfaceProps {

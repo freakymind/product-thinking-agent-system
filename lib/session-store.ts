@@ -42,6 +42,8 @@ const createEmptyMessages = (): Record<StageId, UIMessage[]> => ({
   dataSchema: [],
   featureDefinition: [],
   prioritization: [],
+  aiStrategy: [],
+  testScenarios: [],
 })
 
 const createEmptyProgress = (): Record<StageId, ConversationProgress> => ({
@@ -54,6 +56,8 @@ const createEmptyProgress = (): Record<StageId, ConversationProgress> => ({
   dataSchema: { started: false, userMessageCount: 0, totalUserChars: 0 },
   featureDefinition: { started: false, userMessageCount: 0, totalUserChars: 0 },
   prioritization: { started: false, userMessageCount: 0, totalUserChars: 0 },
+  aiStrategy: { started: false, userMessageCount: 0, totalUserChars: 0 },
+  testScenarios: { started: false, userMessageCount: 0, totalUserChars: 0 },
 })
 
 export const useSessionStore = create<SessionStore>()(

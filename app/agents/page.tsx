@@ -167,6 +167,8 @@ export default function AgentsPage() {
           <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {otherAgents.map((stage, index) => {
               const isComplete = session.completedStages.includes(stage.id)
+              const isLocked = !atlasCompleted
+              console.log(`[v0] Agent ${stage.id}: isLocked=${isLocked}, atlasCompleted=${atlasCompleted}`)
               return (
                 <div
                   key={stage.id}
@@ -180,7 +182,7 @@ export default function AgentsPage() {
                   <AgentCard
                     stage={stage}
                     isComplete={isComplete}
-                    isLocked={!atlasCompleted}
+                    isLocked={isLocked}
                     onClick={() => handleAgentClick(stage.id)}
                   />
                 </div>
@@ -242,9 +244,16 @@ function AgentCard({
   const IconComponent = ICON_MAP[stage.icon as keyof typeof ICON_MAP]
   const colors = COLOR_MAP[stage.color as keyof typeof COLOR_MAP]
   
+  console.log(`[v0] AgentCard ${stage.id} render: isLocked=${isLocked}, disabled=${isLocked}`)
+  
   return (
     <button
-      onClick={onClick}
+      onClick={(e) => {
+        console.log(`[v0] AgentCard ${stage.id} clicked, isLocked=${isLocked}`)
+        if (!isLocked) {
+          onClick()
+        }
+      }}
       disabled={isLocked}
       className={cn(
         'group relative w-full p-6 rounded-2xl border text-left transition-all duration-300',

@@ -5,7 +5,7 @@ import React from "react"
 import { cn } from '@/lib/utils'
 import type { StageId } from '@/lib/types'
 import { STAGES } from '@/lib/types'
-import { Check, Compass, Ear, Frame, Users, ShieldCheck, Lightbulb, Database, Puzzle, Trophy, Bot } from 'lucide-react'
+import { Check, Compass, Ear, Frame, Users, ShieldCheck, Lightbulb, Database, Puzzle, Trophy, Bot, Zap, CheckCircle2 } from 'lucide-react'
 
 // Map icon names to components
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -18,6 +18,8 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   database: Database,
   puzzle: Puzzle,
   trophy: Trophy,
+  zap: Zap,
+  'check-circle': CheckCircle2,
 }
 
 // Map color names to Tailwind classes
@@ -31,6 +33,8 @@ const COLOR_MAP: Record<string, { bg: string; text: string; activeBg: string }> 
   cyan: { bg: 'bg-cyan-500/20', text: 'text-cyan-400', activeBg: 'bg-cyan-500' },
   emerald: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', activeBg: 'bg-emerald-500' },
   orange: { bg: 'bg-orange-500/20', text: 'text-orange-400', activeBg: 'bg-orange-500' },
+  purple: { bg: 'bg-purple-500/20', text: 'text-purple-400', activeBg: 'bg-purple-500' },
+  green: { bg: 'bg-green-500/20', text: 'text-green-400', activeBg: 'bg-green-500' },
 }
 
 interface ProgressStepperProps {

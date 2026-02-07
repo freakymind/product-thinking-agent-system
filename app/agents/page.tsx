@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSessionStore } from '@/lib/session-store'
 import { STAGES } from '@/lib/types'
@@ -40,8 +41,13 @@ export default function AgentsPage() {
   const router = useRouter()
   const { session } = useSessionStore()
   
+  useEffect(() => {
+    if (!session) {
+      router.push('/')
+    }
+  }, [session, router])
+  
   if (!session) {
-    router.push('/')
     return null
   }
   

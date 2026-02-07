@@ -9,8 +9,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Requirements Discovery Tool - Internal System',
-  description: 'Internal AI-guided requirements discovery system. Nine specialized agents help teams develop comprehensive product requirements through structured conversations.',
+  title: 'Product Requirements Tool - Internal System',
+  description: 'Internal AI-guided product requirements system. Ten specialized agents help teams develop comprehensive product requirements through structured conversations.',
   icons: {
     icon: [
       {

@@ -14,7 +14,7 @@ import { ThemeToggle } from '@/components/theme-toggle'
 export default function FlowPage() {
   const { stage } = useParams<{ stage: string }>()
   const router = useRouter()
-  const { session, createSession, setCurrentStage, completeStage, setArtifact, setMessages } = useSessionStore()
+  const { session, createSession, completeStage, setArtifact } = useSessionStore()
   
   const stageId = stage as StageId
   const currentStageData = STAGES.find(s => s.id === stageId)
@@ -93,18 +93,11 @@ export default function FlowPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => router.push('/agents')}
-              className="bg-transparent"
-            >
-              All Agents
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
               onClick={() => router.push('/progress')}
               className="bg-transparent"
             >
-              Progress
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Progress
             </Button>
             {session.completedStages.length > 1 && (
               <Button

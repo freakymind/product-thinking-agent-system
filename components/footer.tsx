@@ -12,10 +12,10 @@ export function Footer() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/20">
                 <Bot className="h-5 w-5 text-violet-400" />
               </div>
-              <span className="text-xl font-bold text-foreground">Requirements Discovery Tool</span>
+              <span className="text-xl font-bold text-foreground">Product Requirements Tool</span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
-              Internal product thinking system. Nine specialized AI agents guide teams through structured requirements discovery and documentation.
+              Internal product thinking system. Ten specialized AI agents guide teams through structured product requirements and documentation.
             </p>
           </div>
           
@@ -29,8 +29,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/agents" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Agent Hub
+                <Link href="/progress" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Progress
                 </Link>
               </li>
               <li>
@@ -63,7 +63,7 @@ export function Footer() {
         <div className="pt-8 border-t border-border/30 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-center md:text-left">
             <p className="text-xs text-muted-foreground">
-              Internal Requirements Discovery Tool · Version 1.0
+              Internal Product Requirements Tool · Version 1.0
             </p>
           </div>
           <p className="text-xs text-muted-foreground">

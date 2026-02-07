@@ -6,12 +6,12 @@ import { useSessionStore } from '@/lib/session-store'
 import { StageCard } from '@/components/stage-card'
 import { Button } from '@/components/ui/button'
 import { STAGES } from '@/lib/types'
-import { ArrowLeft, RotateCcw, Download, Plus, RefreshCw } from 'lucide-react'
+import { ArrowLeft, Download } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function ProgressPage() {
   const router = useRouter()
-  const { session, setCurrentStage, resetSession, resetFeatureFlow, resetCompletely } = useSessionStore()
+  const { session } = useSessionStore()
   
   if (!session) {
     return (
@@ -28,22 +28,7 @@ export default function ProgressPage() {
   }
   
   const handleStageSelect = (stageId: typeof STAGES[number]['id']) => {
-    setCurrentStage(stageId)
     router.push(`/flow/${stageId}`)
-  }
-  
-  const handleNewFeature = () => {
-    if (confirm('Start a new feature using the same project context from ATLAS?')) {
-      resetFeatureFlow()
-      router.push('/flow/intake')
-    }
-  }
-  
-  const handleCompleteReset = () => {
-    if (confirm('This will clear ALL progress including your ATLAS project context. Are you sure?')) {
-      resetCompletely()
-      router.push('/')
-    }
   }
   
   const completedCount = session.completedStages.length
@@ -59,19 +44,7 @@ export default function ProgressPage() {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Button>
-          <div className="flex items-center gap-3">
-            {session.artifacts['context'] && (
-              <Button variant="outline" size="sm" onClick={handleNewFeature}>
-                <Plus className="h-4 w-4 mr-2" />
-                New Feature
-              </Button>
-            )}
-            <Button variant="outline" size="sm" onClick={handleCompleteReset} className="text-destructive hover:text-destructive">
-              <RefreshCw className="h-4 w-4 mr-2" />
-              Reset All
-            </Button>
-            <ThemeToggle />
-          </div>
+          <ThemeToggle />
         </div>
       </header>
 
@@ -80,7 +53,7 @@ export default function ProgressPage() {
         <div className="mb-12">
           <h1 className="text-3xl font-bold text-foreground mb-2">Your Progress</h1>
           <p className="text-muted-foreground mb-6">
-            Track your journey through all 9 agents
+            Track your journey through all 10 agents
           </p>
           
           {/* Progress Bar */}
@@ -121,7 +94,7 @@ export default function ProgressPage() {
               All Agents Complete!
             </h2>
             <p className="text-muted-foreground mb-6">
-              You've completed all 9 agents. Export your PRD to share with your team.
+              You've completed all 10 agents. Export your PRD to share with your team.
             </p>
             <Button size="lg" onClick={() => router.push('/export')}>
               <Download className="h-5 w-5 mr-2" />

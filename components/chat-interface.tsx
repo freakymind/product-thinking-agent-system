@@ -38,7 +38,7 @@ const COLOR_MAP: Record<string, { bg: string; text: string; border?: string }> =
   amber: { bg: 'bg-amber-500/20', text: 'text-amber-400' },
   pink: { bg: 'bg-pink-500/20', text: 'text-pink-400' },
   cyan: { bg: 'bg-cyan-500/20', text: 'text-cyan-400' },
-  emerald: { bg: 'bg-emerald-500/20', text: 'text-emerald-400' },
+  emerald: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', border: 'border-emerald-500/20' },
   orange: { bg: 'bg-orange-500/20', text: 'text-orange-400' },
   purple: { bg: 'bg-purple-500/20', text: 'text-purple-400' },
   green: { bg: 'bg-green-500/20', text: 'text-green-400', border: 'border-green-500/20' },
@@ -63,10 +63,8 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const [error, setError] = useState<string | null>(null)
   
-  // Get persisted conversation progress and all messages from session store
-  const { conversationProgress, updateConversationProgress, messages: allStoredMessages } = useSessionStore()
-  const progress = conversationProgress[stageId]
-  const hasStarted = progress?.started || false
+  // Track if conversation has started
+  const [hasStarted, setHasStarted] = useState(false)
   
   // Get agent info for this stage
   const stage = STAGES.find(s => s.id === stageId)
@@ -89,7 +87,6 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
         body: {
           messages,
           artifacts,
-          allMessages: allStoredMessages,
           generateArtifact: false,
         },
       }),
@@ -118,38 +115,33 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
     }, 0)
   }, 0)
   
-  // Update session store with current progress (persists across navigation)
+  // Track user engagement for artifact generation
+  const [allStoredMessages, setAllStoredMessages] = useState<UIMessage[]>([])
+  const [effectiveMessageCount, setEffectiveMessageCount] = useState(0)
+  const [effectiveCharCount, setEffectiveCharCount] = useState(0)
+
   useEffect(() => {
-    if (hasStarted) {
-      updateConversationProgress(stageId, {
-        userMessageCount,
-        totalUserChars,
-      })
-    }
-  }, [hasStarted, userMessageCount, totalUserChars, stageId, updateConversationProgress])
+    setAllStoredMessages(messages)
+    setEffectiveMessageCount(userMessageCount)
+    setEffectiveCharCount(totalUserChars)
+  }, [messages, userMessageCount, totalUserChars])
+
+  const canGenerateArtifact = hasStarted && effectiveMessageCount >= MIN_EXCHANGES_REQUIRED && effectiveCharCount >= MIN_USER_CHARS_REQUIRED
   
-  // Users must provide meaningful input: at least 3 responses AND 100+ total characters
-  // Use persisted values from store if current messages are empty (navigated away and back)
-  const effectiveMessageCount = userMessageCount > 0 ? userMessageCount : (progress?.userMessageCount || 0)
-  const effectiveCharCount = totalUserChars > 0 ? totalUserChars : (progress?.totalUserChars || 0)
-  const hasEnoughExchanges = effectiveMessageCount >= MIN_EXCHANGES_REQUIRED
-  const hasEnoughContent = effectiveCharCount >= MIN_USER_CHARS_REQUIRED
-  const canGenerateArtifact = hasStarted && hasEnoughExchanges && hasEnoughContent
-  
-// Auto-start conversation when component loads
+  // Auto-start conversation when component loads
   useEffect(() => {
     if (!hasStarted && !hasExistingArtifact) {
       // Small delay to allow UI to render
       const timer = setTimeout(() => {
         setError(null)
-        updateConversationProgress(stageId, { started: true })
+        setHasStarted(true)
         // Trigger agent to start with context review and first question
         sendMessage({ text: 'Begin' })
       }, 500)
       
       return () => clearTimeout(timer)
     }
-  }, [hasStarted, hasExistingArtifact, stageId, updateConversationProgress, sendMessage])
+  }, [hasStarted, hasExistingArtifact, stageId, sendMessage])
   
   // Retry after error
   const handleRetry = () => {
@@ -174,11 +166,11 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
       alert(`Please start a conversation with ${stage?.agentName} first.`)
       return
     }
-    if (!hasEnoughExchanges) {
+    if (effectiveMessageCount < MIN_EXCHANGES_REQUIRED) {
       alert(`Please answer at least ${MIN_EXCHANGES_REQUIRED} questions from ${stage?.agentName} before generating the artifact.`)
       return
     }
-    if (!hasEnoughContent) {
+    if (effectiveCharCount < MIN_USER_CHARS_REQUIRED) {
       alert(`Please provide more detailed responses. You've written ${effectiveCharCount} characters but need at least ${MIN_USER_CHARS_REQUIRED} to generate a quality artifact.`)
       return
     }
@@ -191,7 +183,6 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
         body: JSON.stringify({
           messages,
           artifacts,
-          allMessages: allStoredMessages,
           generateArtifact: true,
         }),
       })

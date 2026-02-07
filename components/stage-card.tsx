@@ -5,7 +5,7 @@ import React from "react"
 import { cn } from '@/lib/utils'
 import type { StageId } from '@/lib/types'
 import { STAGES } from '@/lib/types'
-import { CheckCircle2, ArrowRight, Lock, Compass, Ear, Frame, Users, ShieldCheck, Lightbulb, Database, Puzzle, Trophy, Bot } from 'lucide-react'
+import { CheckCircle2, ArrowRight, Lock, Compass, Ear, Frame, Users, ShieldCheck, Lightbulb, Database, Puzzle, Trophy, Bot, Zap } from 'lucide-react'
 
 // Map icon names to components
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -18,6 +18,8 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   database: Database,
   puzzle: Puzzle,
   trophy: Trophy,
+  zap: Zap,
+  'check-circle': CheckCircle2,
 }
 
 // Map color names to Tailwind classes
@@ -31,6 +33,8 @@ const COLOR_MAP: Record<string, { bg: string; text: string; border: string; glow
   cyan: { bg: 'bg-cyan-500/20', text: 'text-cyan-400', border: 'border-cyan-500/30', glow: 'shadow-cyan-500/20' },
   emerald: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', border: 'border-emerald-500/30', glow: 'shadow-emerald-500/20' },
   orange: { bg: 'bg-orange-500/20', text: 'text-orange-400', border: 'border-orange-500/30', glow: 'shadow-orange-500/20' },
+  purple: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/30', glow: 'shadow-purple-500/20' },
+  green: { bg: 'bg-green-500/20', text: 'text-green-400', border: 'border-green-500/30', glow: 'shadow-green-500/20' },
 }
 
 interface StageCardProps {
@@ -131,7 +135,7 @@ export function StageCard({ stageId, currentStage, completedStages, artifacts, o
           {isCompleted ? 'Completed' : isCurrent ? 'Active' : isLocked ? 'Locked' : 'Ready'}
         </span>
         <span className="text-xs text-muted-foreground">
-          Agent {stageIndex + 1}/9
+          Agent {stageIndex + 1}/10
         </span>
       </div>
     </button>

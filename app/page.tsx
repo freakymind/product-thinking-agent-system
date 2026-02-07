@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useSessionStore } from '@/lib/session-store'
 import { Button } from '@/components/ui/button'
 import { STAGES } from '@/lib/types'
-import { ArrowRight, Bot, Sparkles, CheckCircle2, Zap, Clock, Target, FileText, Play, Settings, RefreshCw, Plus, AlertTriangle, Lock } from 'lucide-react'
+import { ArrowRight, Bot, Sparkles, CheckCircle2, Zap, Clock, Target, FileText, Play, Settings, AlertTriangle, Lock } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Footer } from '@/components/footer'
 import { cn } from '@/lib/utils'
@@ -41,25 +41,13 @@ const COLOR_MAP: Record<string, { bg: string; text: string; glow: string }> = {
 
 export default function HomePage() {
   const router = useRouter()
-  const { session, createSession, resetCompletely } = useSessionStore()
+  const { session, createSession } = useSessionStore()
   
   const handleGetStarted = () => {
     if (!session) {
-      createSession()
+      createSession('My Product', {})
     }
     router.push('/progress')
-  }
-
-  const handleNewFeature = () => {
-    // Implement handleNewFeature logic here
-  }
-
-  const handleCompleteReset = () => {
-    resetCompletely()
-  }
-
-  const handleStart = () => {
-    // Implement handleStart logic here
   }
 
   return (
@@ -83,14 +71,6 @@ export default function HomePage() {
               <>
                 <Button variant="outline" size="sm" onClick={() => router.push('/progress')}>
                   View Progress
-                </Button>
-                <Button variant="outline" size="sm" onClick={handleNewFeature}>
-                  <Plus className="h-4 w-4 mr-2" />
-                  New Feature
-                </Button>
-                <Button variant="outline" size="sm" onClick={handleCompleteReset} className="text-destructive hover:text-destructive bg-transparent">
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  Reset All
                 </Button>
               </>
             )}
@@ -176,10 +156,6 @@ export default function HomePage() {
                     <Play className="h-5 w-5 mr-2 group-hover:animate-pulse" />
                     Continue Session
                     <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                  <Button size="lg" variant="outline" onClick={handleNewFeature} className="h-14 px-10 text-base bg-transparent">
-                    <Plus className="h-5 w-5 mr-2" />
-                    New Feature
                   </Button>
                 </>
               ) : (
@@ -414,7 +390,7 @@ export default function HomePage() {
             <p className="text-lg text-muted-foreground mb-8">
               Start with your first agent. No credit card required.
             </p>
-            <Button size="lg" onClick={handleStart} className="h-14 px-10 text-base">
+            <Button size="lg" onClick={handleGetStarted} className="h-14 px-10 text-base">
               Start Building Now
               <ArrowRight className="h-5 w-5 ml-2" />
             </Button>

@@ -41,25 +41,25 @@ const COLOR_MAP: Record<string, { bg: string; text: string; glow: string }> = {
 
 export default function HomePage() {
   const router = useRouter()
-  const { session, createSession, resetCompletely } = useSessionStore()
+  const { session, createSession } = useSessionStore()
   
   const handleGetStarted = () => {
     if (!session) {
-      createSession()
+      createSession('My Product', {})
     }
     router.push('/progress')
   }
 
   const handleNewFeature = () => {
-    // Implement handleNewFeature logic here
+    // Implementation for handleNewFeature
   }
 
   const handleCompleteReset = () => {
-    resetCompletely()
+    // Implementation for handleCompleteReset
   }
 
   const handleStart = () => {
-    // Implement handleStart logic here
+    // Implementation for handleStart
   }
 
   return (

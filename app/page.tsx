@@ -50,18 +50,6 @@ export default function HomePage() {
     router.push('/progress')
   }
 
-  const handleNewFeature = () => {
-    // Implement handleNewFeature logic here
-  }
-
-  const handleCompleteReset = () => {
-    // Implement handleCompleteReset logic here
-  }
-
-  const handleStart = () => {
-    // Implement handleStart logic here
-  }
-
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}

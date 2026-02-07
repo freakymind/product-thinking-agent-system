@@ -77,7 +77,7 @@ export default function HomePage() {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-foreground">
               <Bot className="h-5 w-5 text-background" />
             </div>
-            <span className="text-xl font-bold text-foreground">Requirements Discovery</span>
+            <span className="text-xl font-bold text-foreground">Product Requirements</span>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/about">
@@ -149,7 +149,7 @@ export default function HomePage() {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-6 text-balance leading-tight animate-fadeIn">
-              Requirements Discovery
+              Product Requirements
               <br />
               <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent animate-gradientShift">
                 Through AI Collaboration
@@ -192,7 +192,7 @@ export default function HomePage() {
                 <>
                   <Button size="lg" onClick={handleGetStarted} className="h-14 px-10 text-base group">
                     <Sparkles className="h-5 w-5 mr-2 group-hover:animate-spin" />
-                    Start Requirements Discovery
+                    Start Product Requirements
                     <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </>

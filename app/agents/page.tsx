@@ -38,23 +38,24 @@ const COLOR_MAP = {
 
 export default function AgentsPage() {
   const router = useRouter()
-  const { session } = useSessionStore()
+  const { session, hasHydrated } = useSessionStore()
+  
+  // Wait for Zustand store to hydrate from localStorage
+  if (!hasHydrated) {
+    return null // Wait for persist middleware to rehydrate
+  }
   
   if (!session) {
     router.push('/')
     return null
   }
   
-  console.log('[v0] Session completed stages:', session.completedStages)
-  console.log('[v0] ATLAS agent ID:', STAGES[0].id)
-  
   const atlasCompleted = session.completedStages.includes('context')
-  console.log('[v0] ATLAS completed?', atlasCompleted)
-  
   const atlasAgent = STAGES[0]
   const otherAgents = STAGES.slice(1)
   
   const handleAgentClick = (stageId: string) => {
+    // ATLAS is always accessible, other agents unlock after ATLAS completion
     if (stageId === 'context' || atlasCompleted) {
       router.push(`/flow/${stageId}`)
     }
@@ -168,7 +169,6 @@ export default function AgentsPage() {
             {otherAgents.map((stage, index) => {
               const isComplete = session.completedStages.includes(stage.id)
               const isLocked = !atlasCompleted
-              console.log(`[v0] Agent ${stage.id}: isLocked=${isLocked}, atlasCompleted=${atlasCompleted}`)
               return (
                 <div
                   key={stage.id}
@@ -244,16 +244,9 @@ function AgentCard({
   const IconComponent = ICON_MAP[stage.icon as keyof typeof ICON_MAP]
   const colors = COLOR_MAP[stage.color as keyof typeof COLOR_MAP]
   
-  console.log(`[v0] AgentCard ${stage.id} render: isLocked=${isLocked}, disabled=${isLocked}`)
-  
   return (
     <button
-      onClick={(e) => {
-        console.log(`[v0] AgentCard ${stage.id} clicked, isLocked=${isLocked}`)
-        if (!isLocked) {
-          onClick()
-        }
-      }}
+      onClick={onClick}
       disabled={isLocked}
       className={cn(
         'group relative w-full p-6 rounded-2xl border text-left transition-all duration-300',

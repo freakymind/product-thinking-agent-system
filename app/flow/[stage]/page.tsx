@@ -14,7 +14,7 @@ import { ThemeToggle } from '@/components/theme-toggle'
 export default function FlowPage() {
   const { stage } = useParams<{ stage: string }>()
   const router = useRouter()
-  const { session, createSession, setCurrentStage, completeStage, setArtifact, setMessages } = useSessionStore()
+  const { session, createSession, completeStage, setArtifact } = useSessionStore()
   
   const stageId = stage as StageId
   const currentStageData = STAGES.find(s => s.id === stageId)

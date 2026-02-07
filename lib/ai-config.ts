@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * INTERNAL REQUIREMENTS DISCOVERY TOOL - CONFIGURATION
+ * INTERNAL PRODUCT REQUIREMENTS TOOL - CONFIGURATION
  * ============================================================================
  * 
  * This file contains all system configuration. Set these values once during

@@ -2,9 +2,8 @@
 
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { StageId, SessionState } from './types'
+import type { StageId, SessionState, Session, RawSignals, Artifact, UIMessage } from './types'
 import { STAGES } from './types'
-import type { UIMessage } from 'ai'
 
 // Track conversation progress per agent
 type ConversationProgress = {
@@ -14,22 +13,14 @@ type ConversationProgress = {
 }
 
 interface SessionStore {
-  // Session state
-  session: SessionState | null
-  messages: Record<StageId, UIMessage[]>
-  conversationProgress: Record<StageId, ConversationProgress>
-  
-  // Actions
-  createSession: () => void
-  setCurrentStage: (stage: StageId) => void
+  session: Session | null
+  hasHydrated: boolean
+  setHasHydrated: (state: boolean) => void
+  createSession: (projectName: string, rawSignals: RawSignals) => void
+  addMessage: (stage: StageId, message: UIMessage) => void
+  setArtifact: (stage: StageId, artifact: Artifact) => void
   completeStage: (stage: StageId) => void
-  setArtifact: (key: string, value: unknown) => void
-  getArtifact: (key: string) => unknown | undefined
-  setMessages: (stage: StageId, messages: UIMessage[]) => void
-  updateConversationProgress: (stage: StageId, progress: Partial<ConversationProgress>) => void
-  resetSession: () => void
-  resetFeatureFlow: () => void // Reset all except ATLAS context
-  resetCompletely: () => void // Reset everything including ATLAS
+  updateProgress: (stage: StageId, userMessage: string) => void
 }
 
 const createEmptyMessages = (): Record<StageId, UIMessage[]> => ({
@@ -64,11 +55,11 @@ export const useSessionStore = create<SessionStore>()(
   persist(
     (set, get) => ({
       session: null,
-      messages: createEmptyMessages(),
-      conversationProgress: createEmptyProgress(),
+      hasHydrated: false,
+      setHasHydrated: (state) => set({ hasHydrated: state }),
       
-      createSession: () => {
-        const newSession: SessionState = {
+      createSession: (projectName: string, rawSignals: RawSignals) => {
+        const newSession: Session = {
           id: crypto.randomUUID(),
           currentStage: 'context',
           completedStages: [],
@@ -76,39 +67,29 @@ export const useSessionStore = create<SessionStore>()(
           createdAt: new Date(),
           updatedAt: new Date(),
         }
-        set({ session: newSession, messages: createEmptyMessages() })
+        set({ session: newSession })
       },
       
-      setCurrentStage: (stage) => {
-        const session = get().session
-        if (!session) return
-        set({
-          session: {
-            ...session,
-            currentStage: stage,
-            updatedAt: new Date(),
-          },
-        })
+      addMessage: (stage, message) => {
+        // Messages are handled in chat-interface component state
+        // This is a placeholder for future message persistence
+      },
+      
+      updateProgress: (stage, userMessage) => {
+        // Progress tracking placeholder
       },
       
       completeStage: (stage) => {
         const session = get().session
         if (!session) return
         
-        console.log('[v0] Completing stage:', stage)
-        console.log('[v0] Current completed stages:', session.completedStages)
-        
         const completedStages = session.completedStages.includes(stage)
           ? session.completedStages
           : [...session.completedStages, stage]
         
-        console.log('[v0] New completed stages:', completedStages)
-        
         // Auto-advance to next stage
         const currentIndex = STAGES.findIndex(s => s.id === stage)
         const nextStage = STAGES[currentIndex + 1]?.id || stage
-        
-        console.log('[v0] Next stage:', nextStage)
         
         set({
           session: {
@@ -131,62 +112,13 @@ export const useSessionStore = create<SessionStore>()(
           },
         })
       },
-      
-      getArtifact: (key: string) => {
-        const session = get().session
-        return session?.artifacts[key]
-      },
-      
-      setMessages: (stage, messages) => {
-        set((state) => ({
-          messages: { ...state.messages, [stage]: messages },
-        }))
-      },
-      
-      updateConversationProgress: (stage, progress) => {
-        set((state) => ({
-          conversationProgress: {
-            ...state.conversationProgress,
-            [stage]: { ...state.conversationProgress[stage], ...progress },
-          },
-        }))
-      },
-      
-      resetSession: () => {
-        set({ session: null, messages: createEmptyMessages(), conversationProgress: createEmptyProgress() })
-      },
-      
-      // Reset feature flow but keep ATLAS context
-      resetFeatureFlow: () => {
-        const session = get().session
-        if (!session) return
-        
-        const atlasArtifact = session.artifacts['context']
-        const messages = get().messages
-        const atlasMessages = messages['context']
-        const progress = get().conversationProgress
-        const atlasProgress = progress['context']
-        
-        set({
-          session: {
-            ...session,
-            currentStage: 'intake', // Start from IRIS
-            completedStages: ['context'], // Keep ATLAS as complete
-            artifacts: { context: atlasArtifact }, // Only keep ATLAS artifact
-            updatedAt: new Date(),
-          },
-          messages: { ...createEmptyMessages(), context: atlasMessages },
-          conversationProgress: { ...createEmptyProgress(), context: atlasProgress },
-        })
-      },
-      
-      // Complete reset including ATLAS
-      resetCompletely: () => {
-        set({ session: null, messages: createEmptyMessages(), conversationProgress: createEmptyProgress() })
-      },
     }),
     {
       name: 'product-coach-session',
+      onRehydrateStorage: () => (state) => {
+        // Set hasHydrated to true after rehydration completes
+        state?.setHasHydrated(true)
+      },
     }
   )
 )

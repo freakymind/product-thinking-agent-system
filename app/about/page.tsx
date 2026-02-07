@@ -16,7 +16,7 @@ export default function AboutPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/20">
               <Bot className="h-5 w-5 text-violet-400" />
             </div>
-            <span className="text-xl font-bold text-foreground">Requirements Discovery</span>
+            <span className="text-xl font-bold text-foreground">Product Requirements</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/">

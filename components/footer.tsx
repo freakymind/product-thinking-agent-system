@@ -29,8 +29,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/agents" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Agent Hub
+                <Link href="/progress" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Progress
                 </Link>
               </li>
               <li>

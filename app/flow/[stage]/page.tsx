@@ -93,18 +93,11 @@ export default function FlowPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => router.push('/agents')}
-              className="bg-transparent"
-            >
-              All Agents
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
               onClick={() => router.push('/progress')}
               className="bg-transparent"
             >
-              Progress
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Progress
             </Button>
             {session.completedStages.length > 1 && (
               <Button

@@ -22,7 +22,7 @@ export default function ExportPage() {
     
     // Check if ATLAS is complete (mandatory)
     if (!session.artifacts['context']) {
-      router.push('/agents')
+      router.push('/progress')
       return
     }
     
@@ -78,9 +78,9 @@ export default function ExportPage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" onClick={() => router.push('/agents')}>
+            <Button variant="outline" onClick={() => router.push('/progress')}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Agents
+              Back to Progress
             </Button>
             <Button variant="outline" onClick={handleCopyMarkdown}>
               {copied ? <Check className="h-4 w-4 mr-2" /> : <Copy className="h-4 w-4 mr-2" />}

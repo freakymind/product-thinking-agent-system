@@ -41,31 +41,25 @@ const COLOR_MAP: Record<string, { bg: string; text: string; glow: string }> = {
 
 export default function HomePage() {
   const router = useRouter()
-  const { session, createSession, resetFeatureFlow, resetCompletely } = useSessionStore()
-  
-  const handleStart = () => {
-    if (!session) {
-      createSession()
-    }
-    router.push('/agents')
-  }
-  
-  const handleNewFeature = () => {
-    resetFeatureFlow()
-    router.push('/agents')
-  }
-  
-  const handleCompleteReset = () => {
-    if (confirm('This will clear ALL progress including your project context. Are you sure?')) {
-      resetCompletely()
-    }
-  }
+  const { session, createSession, resetCompletely } = useSessionStore()
   
   const handleGetStarted = () => {
     if (!session) {
       createSession()
     }
-    router.push('/agents')
+    router.push('/progress')
+  }
+
+  const handleNewFeature = () => {
+    // Implement handleNewFeature logic here
+  }
+
+  const handleCompleteReset = () => {
+    resetCompletely()
+  }
+
+  const handleStart = () => {
+    // Implement handleStart logic here
   }
 
   return (
@@ -178,7 +172,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               {session ? (
                 <>
-                  <Button size="lg" onClick={() => router.push('/agents')} className="h-14 px-10 text-base group">
+                  <Button size="lg" onClick={() => router.push('/progress')} className="h-14 px-10 text-base group">
                     <Play className="h-5 w-5 mr-2 group-hover:animate-pulse" />
                     Continue Session
                     <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />

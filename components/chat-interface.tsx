@@ -115,18 +115,13 @@ export function ChatInterface({ stageId, artifacts, onArtifactGenerated }: ChatI
     }, 0)
   }, 0)
   
-  // Track user engagement for artifact generation
-  const [allStoredMessages, setAllStoredMessages] = useState<UIMessage[]>([])
-  const [effectiveMessageCount, setEffectiveMessageCount] = useState(0)
-  const [effectiveCharCount, setEffectiveCharCount] = useState(0)
-
-  useEffect(() => {
-    setAllStoredMessages(messages)
-    setEffectiveMessageCount(userMessageCount)
-    setEffectiveCharCount(totalUserChars)
-  }, [messages, userMessageCount, totalUserChars])
-
-  const canGenerateArtifact = hasStarted && effectiveMessageCount >= MIN_EXCHANGES_REQUIRED && effectiveCharCount >= MIN_USER_CHARS_REQUIRED
+  // Check if user has provided enough meaningful input for artifact generation
+  const canGenerateArtifact = hasStarted && userMessageCount >= MIN_EXCHANGES_REQUIRED && totalUserChars >= MIN_USER_CHARS_REQUIRED
+  
+  // Effective message count and character count
+  const effectiveMessageCount = userMessageCount
+  const effectiveCharCount = totalUserChars
+  const hasEnoughExchanges = effectiveMessageCount >= MIN_EXCHANGES_REQUIRED
   
   // Auto-start conversation when component loads
   useEffect(() => {

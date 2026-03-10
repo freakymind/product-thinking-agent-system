@@ -6,12 +6,12 @@ import { useSessionStore } from '@/lib/session-store'
 import { StageCard } from '@/components/stage-card'
 import { Button } from '@/components/ui/button'
 import { STAGES } from '@/lib/types'
-import { ArrowLeft, Download } from 'lucide-react'
+import { ArrowLeft, Download, RotateCcw } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function ProgressPage() {
   const router = useRouter()
-  const { session } = useSessionStore()
+  const { session, resetSession } = useSessionStore()
   
   if (!session) {
     return (
@@ -31,6 +31,13 @@ export default function ProgressPage() {
     router.push(`/flow/${stageId}`)
   }
   
+  const handleStartNew = () => {
+    if (confirm('This will clear all your current progress and start fresh. Are you sure?')) {
+      resetSession()
+      router.push('/')
+    }
+  }
+  
   const completedCount = session.completedStages.length
   const totalCount = STAGES.length
   const progressPercentage = (completedCount / totalCount) * 100
@@ -44,7 +51,18 @@ export default function ProgressPage() {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Button>
-          <ThemeToggle />
+          <div className="flex items-center gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleStartNew}
+              className="text-destructive hover:text-destructive bg-transparent border-destructive/30 hover:border-destructive/60"
+            >
+              <RotateCcw className="h-4 w-4 mr-2" />
+              Start New Requirements
+            </Button>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 

@@ -30,7 +30,7 @@ export default function FlowPage() {
   // Create session if none exists
   useEffect(() => {
     if (!session) {
-      createSession()
+      createSession('My Product', {})
     }
   }, [session, createSession])
   

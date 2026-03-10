@@ -21,6 +21,7 @@ interface SessionStore {
   setArtifact: (stage: StageId, artifact: Artifact) => void
   completeStage: (stage: StageId) => void
   updateProgress: (stage: StageId, userMessage: string) => void
+  resetSession: () => void
 }
 
 const createEmptyMessages = (): Record<StageId, UIMessage[]> => ({
@@ -77,6 +78,10 @@ export const useSessionStore = create<SessionStore>()(
       
       updateProgress: (stage, userMessage) => {
         // Progress tracking placeholder
+      },
+      
+      resetSession: () => {
+        set({ session: null })
       },
       
       completeStage: (stage) => {
